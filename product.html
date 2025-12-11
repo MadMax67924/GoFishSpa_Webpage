@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detalle del producto - GoFisSpa</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <a href="index.html">← Volver</a>
+    <h1 id="producto-nombre">Detalle</h1>
+  </header>
+
+  <main class="detalle-contenedor">
+    <div class="imagen-grande" id="imagen-contenedor">
+      <!-- Imagen grande se inserta por JS -->
+    </div>
+
+    <aside class="detalle-info">
+      <h2 id="producto-titulo"></h2>
+      <p id="producto-descripcion"></p>
+      <p id="producto-precio" class="precio"></p>
+
+      <!-- Botón Whatsapp (se completa por JS) -->
+      <a id="whatsapp-link" class="btn-wsp" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
+    </aside>
+  </main>
+
+  <script src="js/products.js"></script>
+  <script>
+    // Obtener parámetro id de la URL
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const id = getQueryParam('id');
+
+    if (!window.PRODUCTS) {
+      console.error('Falta js/products.js que define PRODUCTS');
+    } else {
+      const product = PRODUCTS.find(p => String(p.id) === String(id));
+      if (!product) {
+        document.getElementById('producto-nombre').textContent = 'Producto no encontrado';
+        document.getElementById('imagen-contenedor').innerHTML = '<p>El producto no existe.</p>';
+      } else {
+        // Títulos y descripción
+        document.getElementById('producto-nombre').textContent = product.name;
+        document.getElementById('producto-titulo').textContent = product.name;
+        document.getElementById('producto-descripcion').textContent = product.description || '';
+        document.getElementById('producto-precio').textContent = product.price ? product.price : '';
+
+        // Imagen grande
+        const imgWrap = document.getElementById('imagen-contenedor');
+        imgWrap.innerHTML = `<img src="${product.image}" alt="${product.name}" class="img-large" />`;
+
+        // Whatsapp: cambia PHONE_NUMBER en products.js o edita aquí
+        const phone = product.phone || window.GLOBAL_WHATSAPP_NUMBER || 'PHONE_NUMBER';
+        // Mensaje prellenado (URI encoded)
+        const message = encodeURIComponent(product.wsp_message || `Hola, estoy interesado en ${product.name}. Quisiera hacer un pedido.`);
+        const waUrl = `https://wa.me/${phone}?text=${message}`;
+        const waLink = document.getElementById('whatsapp-link');
+        waLink.href = waUrl;
+      }
+    }
+  </script>
+</body>
+</html>
