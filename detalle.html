@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Detalle de producto</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <script src="data/products.js" defer></script>
+  <script src="js/detalle.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="btn-volver" href="index.html" aria-label="Volver al catálogo">← Volver</a>
+    <h1 id="titulo-producto">Detalle</h1>
+  </header>
+
+  <main id="detalle" class="detalle">
+    <section class="galeria" aria-label="Galería de imágenes">
+      <img id="img-principal" src="img/placeholder.png" alt="Imagen principal del producto" />
+      <div id="thumbnails" class="thumbnails" role="list"></div>
+    </section>
+
+    <section class="info">
+      <h2 id="nombre">Nombre del producto</h2>
+      <p id="precio" class="precio"></p>
+      <p id="descripcion"></p>
+      <ul id="lista-detalles" class="lista-detalles"></ul>
+
+      <!-- BOTÓN WHATSAPP (solo redirige al chat, sin mensaje prellenado) -->
+      <a id="btn-whatsapp" class="btn-whatsapp" href="https://wa.me/56963365895" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+        Contactar por WhatsApp
+      </a>
+    </section>
+  </main>
+</body>
+</html>
